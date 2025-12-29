@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-gray-50 text-gray-900;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/30 shadow-xl;
+  }
+}
+
+/* Calendar Styles Override */
+.rbc-calendar {
+  min-height: 600px;
+  @apply font-sans;
+}
+
+.rbc-header {
+  @apply py-3 font-semibold text-gray-700 bg-gray-50 border-b border-gray-200 uppercase text-xs tracking-wider !important;
+}
+
+.rbc-event {
+  @apply rounded border-0 shadow-sm !important;
+}
+
+.rbc-event.preventive {
+  @apply bg-primary-100 text-primary-700 border-l-4 border-primary-500 !important;
+}
+
+.rbc-event.corrective {
+  @apply bg-warning-100 text-warning-700 border-l-4 border-warning-500 !important;
+}
+
+.rbc-today {
+  @apply bg-primary-50 !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400;
+}
+
+/* Loading Spinner */
+.spinner {
+  @apply inline-block w-8 h-8 border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin;
+}
