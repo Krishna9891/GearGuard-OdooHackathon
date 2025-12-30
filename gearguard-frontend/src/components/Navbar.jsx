@@ -2,11 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { FaSignOutAlt, FaUserCircle, FaCog, FaSearch, FaBell, FaMoon, FaSun, FaCheck } from 'react-icons/fa';
+import { FaSignOutAlt, FaUserCircle, FaCog, FaSearch, FaBell, FaMoon, FaSun, FaCheck, FaShieldAlt } from 'react-icons/fa';
+import { useNotifications } from '../context/NotificationContext';
 
 const Navbar = () => {
+
     const { user, logout } = useAuth();
     const { theme, toggleTheme } = useTheme();
+    const { notifications, markAllRead } = useNotifications(); // Use Context
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -44,13 +47,6 @@ const Navbar = () => {
         { name: 'Reports', path: '/reports' },
     ];
 
-    // Dummy Notifications
-    const notifications = [
-        { id: 1, text: "New request: Conveyor Belt", time: "2 min ago", read: false },
-        { id: 2, text: "Hydraulic Press maintenance overdue", time: "1 hour ago", read: false },
-        { id: 3, text: "System update scheduled", time: "1 day ago", read: true },
-    ];
-
     const unreadCount = notifications.filter(n => !n.read).length;
 
     return (
@@ -60,8 +56,11 @@ const Navbar = () => {
                     {/* Logo & Brand */}
                     <div className="flex items-center">
                         <Link to="/" className="flex-shrink-0 flex items-center gap-2 group">
-                            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200">
-                                <span className="text-white font-bold text-xl">G</span>
+                            <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200 relative overflow-hidden">
+                                <FaShieldAlt className="text-white text-[18px] relative z-10" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <FaCog className="text-white/20 text-3xl animate-spin-slow-reverse" />
+                                </div>
                             </div>
                             <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">GearGuard</span>
                         </Link>
@@ -125,18 +124,22 @@ const Navbar = () => {
                                 <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 border border-gray-100 dark:border-gray-700 z-50 animate-scale-up">
                                     <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Notifications</h3>
-                                        <span className="text-xs text-primary-600 dark:text-primary-400 font-medium cursor-pointer">Mark all read</span>
+                                        <span onClick={markAllRead} className="text-xs text-primary-600 dark:text-primary-400 font-medium cursor-pointer hover:underline">Mark all read</span>
                                     </div>
                                     <div className="max-h-64 overflow-y-auto">
-                                        {notifications.map((notif) => (
-                                            <div key={notif.id} className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-50 dark:border-gray-700 last:border-0 cursor-pointer ${!notif.read ? 'bg-primary-50/30' : ''}`}>
-                                                <p className="text-sm text-gray-800 dark:text-gray-200">{notif.text}</p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{notif.time}</p>
-                                            </div>
-                                        ))}
+                                        {notifications.length === 0 ? (
+                                            <div className="px-4 py-3 text-sm text-gray-500 text-center">No notifications</div>
+                                        ) : (
+                                            notifications.map((notif) => (
+                                                <div key={notif.id} className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-50 dark:border-gray-700 last:border-0 cursor-pointer ${!notif.read ? 'bg-primary-50/30' : ''}`}>
+                                                    <p className="text-sm text-gray-800 dark:text-gray-200">{notif.text}</p>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{notif.time}</p>
+                                                </div>
+                                            ))
+                                        )}
                                     </div>
                                     <div className="px-4 py-2 border-t border-gray-100 dark:border-gray-700 text-center">
-                                        <Link to="/notifications" className="text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700">View all notifications</Link>
+                                        <button className="text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700">View all</button>
                                     </div>
                                 </div>
                             )}

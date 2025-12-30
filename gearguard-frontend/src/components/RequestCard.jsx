@@ -36,7 +36,7 @@ const RequestCard = ({ request, isOverlay }) => {
             >
                 {/* Header: ID & Priority */}
                 <div className="flex justify-between items-start mb-2">
-                    <span className="font-mono text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">
+                    <span className="font-mono text-xs font-semibold text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-800/50 px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-600">
                         {request.request_number}
                     </span>
                     <Badge variant="priority" type={request.priority} />
@@ -49,25 +49,25 @@ const RequestCard = ({ request, isOverlay }) => {
 
                 {/* Meta: Equipment */}
                 <div className="flex items-center text-xs text-gray-600 dark:text-gray-300 mb-3">
-                    <FaWrench className="mr-1.5 text-gray-400 dark:text-gray-500" />
-                    <span className="truncate max-w-[180px]">
+                    <FaWrench className="mr-1.5 text-gray-400 dark:text-gray-400" />
+                    <span className="truncate max-w-[180px] font-medium">
                         {request.equipment?.name || request.work_center?.name || 'Unknown Asset'}
                     </span>
                 </div>
 
                 {/* Footer: User & Date */}
-                <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100 dark:border-gray-600">
+                <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100 dark:border-gray-600/50">
                     <div className="flex items-center" title={request.assignedTo?.full_name}>
-                        <div className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-700 dark:text-primary-300 text-xs font-bold ring-2 ring-white dark:ring-gray-600">
+                        <div className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/40 flex items-center justify-center text-primary-700 dark:text-primary-300 text-xs font-bold ring-2 ring-white dark:ring-gray-600">
                             {request.assignedTo?.full_name?.charAt(0) || '?'}
                         </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-2 truncate max-w-[80px]">
+                        <span className="text-xs text-gray-500 dark:text-gray-300 ml-2 truncate max-w-[80px]">
                             {request.assignedTo?.full_name?.split(' ')[0] || 'Unassigned'}
                         </span>
                     </div>
 
                     {request.scheduled_date && (
-                        <div className={`flex items-center text-xs ${isOverdue ? 'text-danger-600 dark:text-danger-400 font-bold' : 'text-gray-400 dark:text-gray-500'}`}>
+                        <div className={`flex items-center text-xs ${isOverdue ? 'text-danger-600 dark:text-danger-400 font-bold' : 'text-gray-400 dark:text-gray-400'}`}>
                             <FaCalendarAlt className="mr-1" />
                             {new Date(request.scheduled_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                         </div>

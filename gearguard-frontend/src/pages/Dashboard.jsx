@@ -68,7 +68,7 @@ const Dashboard = () => {
                     <Card variant="stat" padding="md" className="relative overflow-hidden group">
                         <div className="relative z-10">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="p-3 bg-primary-100 rounded-lg text-primary-600 text-xl group-hover:bg-primary-600 group-hover:text-white transition-colors duration-200">
+                                <div className="p-4 bg-primary-500/10 rounded-2xl text-primary-600 dark:text-primary-400 text-2xl group-hover:bg-primary-600 group-hover:text-white transition-all duration-300 backdrop-blur-sm shadow-sm ring-1 ring-primary-500/20">
                                     <FaClipboardList />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Total</span>
@@ -81,7 +81,7 @@ const Dashboard = () => {
                     <Card variant="stat" padding="md" className="relative overflow-hidden group">
                         <div className="relative z-10">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="p-3 bg-info-100 rounded-lg text-info-600 text-xl group-hover:bg-info-600 group-hover:text-white transition-colors duration-200">
+                                <div className="p-4 bg-info-500/10 rounded-2xl text-info-600 dark:text-info-400 text-2xl group-hover:bg-info-600 group-hover:text-white transition-all duration-300 backdrop-blur-sm shadow-sm ring-1 ring-info-500/20">
                                     <FaTools />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Active</span>
@@ -97,7 +97,7 @@ const Dashboard = () => {
                     <Card variant="stat" padding="md" className="relative overflow-hidden group">
                         <div className="relative z-10">
                             <div className="flex items-center justify-between mb-4">
-                                <div className="p-3 bg-success-100 rounded-lg text-success-600 text-xl group-hover:bg-success-600 group-hover:text-white transition-colors duration-200">
+                                <div className="p-4 bg-success-500/10 rounded-2xl text-success-600 dark:text-success-400 text-2xl group-hover:bg-success-600 group-hover:text-white transition-all duration-300 backdrop-blur-sm shadow-sm ring-1 ring-success-500/20">
                                     <FaCheckCircle />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Completed</span>
@@ -110,7 +110,7 @@ const Dashboard = () => {
                     <Card variant="stat" padding="md" className="relative overflow-hidden group border-danger-100 bg-danger-50/50">
                         <div className="relative z-10">
                             <div className="flex items-center justify-between mb-4">
-                                <div className={`p-3 rounded-lg text-xl transition-colors duration-200 ${stats?.overview?.overdue > 0 ? 'bg-danger-100 text-danger-600 group-hover:bg-danger-600 group-hover:text-white' : 'bg-gray-100 text-gray-400'}`}>
+                                <div className={`p-4 rounded-2xl text-2xl transition-all duration-300 backdrop-blur-sm shadow-sm ${stats?.overview?.overdue > 0 ? 'bg-danger-500/10 text-danger-600 dark:text-danger-400 ring-1 ring-danger-500/20 group-hover:bg-danger-600 group-hover:text-white' : 'bg-gray-100 text-gray-400'}`}>
                                     <FaExclamationTriangle />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-wider text-danger-400">Attention</span>
@@ -134,7 +134,7 @@ const Dashboard = () => {
                                     cursor={{ fill: isDark ? '#374151' : '#F3F4F6' }}
                                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', backgroundColor: tooltipBg, color: tooltipText }}
                                 />
-                                <Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} barSize={40} />
+                                <Bar dataKey="count" fill="#8B5CF6" radius={[4, 4, 0, 0]} barSize={40} />
                             </BarChart>
                         </ResponsiveContainer>
                     </Card>

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
-import { FaUser, FaEnvelope, FaLock, FaCog } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaCog, FaShieldAlt } from 'react-icons/fa';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -43,8 +43,11 @@ const Register = () => {
 
                 <div className="relative z-10 text-center max-w-lg">
                     {/* Logo Icon */}
-                    <div className="mx-auto w-24 h-24 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-8 shadow-2xl border border-white/20">
-                        <span className="text-white font-bold text-5xl">G</span>
+                    <div className="mx-auto w-24 h-24 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center mb-8 shadow-2xl border border-white/20 relative overflow-hidden group">
+                        <FaShieldAlt className="text-white text-5xl relative z-10" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <FaCog className="text-white/20 text-[80px] animate-spin-slow" />
+                        </div>
                     </div>
 
                     <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
@@ -61,8 +64,11 @@ const Register = () => {
                 <div className="w-full max-w-[400px] space-y-8">
                     {/* Mobile Logo (Visible only on small screens) */}
                     <div className="lg:hidden text-center mb-8">
-                        <div className="inline-flex w-16 h-16 bg-primary-600 rounded-xl items-center justify-center shadow-lg mb-4">
-                            <span className="text-white font-bold text-3xl">G</span>
+                        <div className="inline-flex w-16 h-16 bg-primary-600 rounded-2xl items-center justify-center shadow-lg mb-4 relative overflow-hidden">
+                            <FaShieldAlt className="text-white text-3xl relative z-10" />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <FaCog className="text-white/20 text-5xl animate-spin-slow" />
+                            </div>
                         </div>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">GearGuard</h2>
                     </div>

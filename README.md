@@ -2,25 +2,12 @@
 
 > Industrial maintenance management system built for the Odoo x Adani Hackathon
 
-[![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js)](https://nodejs.org/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-
-<!-- Live Demo buttons -->
-[View Demo Video](#) · [Report Bug](#) · [Request Feature](#)
-
-<!-- Hero screenshot -->
-![Dashboard Hero](./docs/dashboard-hero.png)
-
-<!-- Demo GIF -->
-![Demo GIF](./docs/demo.gif)
 
 ## Problem Statement
-Industrial maintenance is often plagued by:
-*   **Reactive Chaos**: Waiting for machines to break instead of preventing it.
-*   **Manual Drudgery**: Error-prone data entry and spreadsheet limitations.
-*   **Poor UX**: Complex, outdated software that requires weeks of training.
+**Objective**: Develop a maintenance management system that allows a company to track its 
+assets (machines, vehicles, computers) and manage maintenance requests for those assets. 
+**Core Philosophy**: The module must seamlessly connect Equipment (what is broken), Teams 
+(who fix it), and Requests (the work to be done). 
 
 ## Solution
 GearGuard transforms maintenance into a streamlined, digital workflow. It connects teams, technicians, and equipment in one platform, enabling **predictive maintenance** and **automated resource management**.
@@ -38,9 +25,10 @@ GearGuard transforms maintenance into a streamlined, digital workflow. It connec
 *   **Intelligent Resource Mapping**: Auto-assigns the correct Team and Technician based on the selected Equipment.
 *   **Kanban Workflow**: Interactive drag-and-drop board for managing maintenance request lifecycles.
 *   **Smart Analytics**: Real-time insights into Preventive vs. Corrective maintenance ratios.
-*   **Smart Notifications**: (Simulated) Immediate alerts for status changes and overdue tasks.
+*   **Dynamic Toast Notifications**: Real-time pop-up alerts for status changes, new assets, and critical updates.
+*   **Advanced Filtering**: Filter equipment by Department/Team and Status with a modern popover UI.
+*   **Preventive Scheduling**: Full Calendar view with monthly summaries and status color-coding.
 *   **Automated Logic**: "Scrap" requests automatically decommission equipment in the backend.
-*   **Preventive Scheduling**: Calendar integration for recurring maintenance tasks.
 
 ## Tech Stack
 
@@ -56,29 +44,12 @@ GearGuard transforms maintenance into a streamlined, digital workflow. It connec
 *   **Database**: SQLite (Dev) / Compatible with PostgreSQL
 *   **ORM**: Sequelize
 
-## Screenshots
-
-### Dashboard
-<!-- Add screenshot of dashboard here -->
-![Dashboard](./docs/ss-dashboard.png)
-
-### Kanban Board
-<!-- Add screenshot of kanban board here -->
-![Kanban](./docs/ss-kanban.png)
-
-### Analytics
-<!-- Add screenshot of reports page here -->
-![Analytics](./docs/ss-analytics.png)
-
-### Equipment Management
-<!-- Add screenshot of equipment list here -->
-![Equipment](./docs/ss-equipment.png)
 
 ## Quick Start
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/gearguard.git
+git clone https://github.com/Krishna9891/GearGuard-OdooHackathon.git
 
 # Backend (Terminal 1)
 cd gearguard-backend && npm install && npm run dev
@@ -96,7 +67,7 @@ cd gearguard-frontend && npm install && npm run dev
 ### Installation
 1.  **Clone the repo**
     ```bash
-    git clone https://github.com/yourusername/gearguard.git
+    git clone https://github.com/Krishna9891/GearGuard-OdooHackathon.git
     cd gearguard
     ```
 
@@ -117,7 +88,7 @@ cd gearguard-frontend && npm install && npm run dev
 
 ### Demo Credentials
 *   **Admin**: `admin@gearguard.com` / `Password123!`
-*   **Technician**: `tech@gearguard.com` / `Password123!`
+*   **Technician**: `mitch@gearguard.com` / `Password123!`
 
 ## Project Structure
 
@@ -172,21 +143,3 @@ API endpoints are documented in the codebase. Key routes:
 *   [ ] IoT Sensor Integration for auto-triggering requests
 *   [ ] PDF Report Export
 
-## Contributing
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
-
-## Team
-*   **[Your Name]** - *Full Stack Developer* - [GitHub](https://github.com/)
-*   **[Member 2]** - *Frontend Engineer* - [GitHub](https://github.com/)
-*   **[Member 3]** - *Backend Engineer* - [GitHub](https://github.com/)
-
-## License
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## Acknowledgments
-*   Built for the **Odoo x Adani Hackathon**.
-*   Special thanks to [Mentors/Organizers].

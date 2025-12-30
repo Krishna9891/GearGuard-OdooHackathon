@@ -6,6 +6,7 @@ import EquipmentForm from '../components/equipment/EquipmentForm';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
+import { useNotifications } from '../context/NotificationContext';
 import { FaPlus, FaSearch, FaFilter, FaWrench, FaHistory, FaMapMarkerAlt, FaUsers } from 'react-icons/fa';
 
 const Equipment = () => {
@@ -13,7 +14,11 @@ const Equipment = () => {
     const [loading, setLoading] = useState(true);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState('all');
+    const [departmentFilter, setDepartmentFilter] = useState('all');
+    const [showFilters, setShowFilters] = useState(false);
     const [activeRequests, setActiveRequests] = useState({});
+    const { addNotification } = useNotifications();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,14 +49,22 @@ const Equipment = () => {
 
     const handleCreate = async (data) => {
         await api.post('/equipment', data);
+        addNotification(`New equipment added: ${data.name}`, 'success');
         fetchEquipment();
         setIsFormOpen(false);
     };
 
-    const filteredEquipment = equipment.filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.serial_number.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredEquipment = equipment.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.serial_number.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+        // Assuming location or a 'department' field exists. If not, filtered by location for now as proxy or exact field if added.
+        // The mock data usually has 'location' like "Zone A". Let's assume user wants to filter by that or add a department field.
+        // Since I don't recall precise department field in seed.js on Equipment (it had assignedTeam), I will check item.department logic.
+        // Actually earlier 'Equipment.jsx' showed `item.assignedTeam?.name`.
+        const matchesDept = departmentFilter === 'all' || (item.location && item.location.includes(departmentFilter)) || (item.assignedTeam?.name && item.assignedTeam.name.includes(departmentFilter));
+        return matchesSearch && matchesStatus && matchesDept;
+    });
 
     if (loading) return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -70,21 +83,81 @@ const Equipment = () => {
                         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Equipments</h1>
                         <p className="text-gray-500 dark:text-gray-400 mt-1">Manage machinery, assets, and tracking.</p>
                     </div>
-                    <div className="flex items-center gap-3 w-full md:w-auto">
-                        <div className="relative flex-1 md:w-64">
+
+                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto relative z-10">
+                        {/* Search */}
+                        <div className="relative flex-grow md:flex-grow-0 md:w-80">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <FaSearch className="text-gray-400" />
+                                <FaSearch className="text-gray-400 dark:text-gray-500" />
                             </div>
                             <input
-                                type="text"
-                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-                                placeholder="Search by name or serial..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                className="block w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 shadow-sm"
+                                placeholder="Search..."
                             />
                         </div>
-                        <Button variant="secondary" icon={FaFilter} className="hidden sm:flex">Filter</Button>
-                        <Button variant="primary" icon={FaPlus} onClick={() => setIsFormOpen(true)}>
+
+                        {/* Filter Toggle */}
+                        <div className="relative">
+                            <Button
+                                variant={showFilters ? 'primary' : 'secondary'}
+                                icon={FaFilter}
+                                onClick={() => setShowFilters(!showFilters)}
+                            >
+                                Filter
+                            </Button>
+
+                            {showFilters && (
+                                <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 p-4 z-50 animate-scale-up origin-top-right">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Status</label>
+                                            <select
+                                                value={statusFilter}
+                                                onChange={(e) => setStatusFilter(e.target.value)}
+                                                className="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white text-sm"
+                                            >
+                                                <option value="all">All Statuses</option>
+                                                <option value="active">Active</option>
+                                                <option value="under_maintenance">Under Maintenance</option>
+                                                <option value="scrapped">Scrapped</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Assigned Team</label>
+                                            <select
+                                                value={departmentFilter}
+                                                onChange={(e) => setDepartmentFilter(e.target.value)}
+                                                className="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white text-sm"
+                                            >
+                                                <option value="all">All Teams</option>
+                                                <option value="Unassigned">Unassigned</option>
+                                                <option value="Electrical">Electrical</option>
+                                                <option value="Hydraulic">Hydraulic</option>
+                                                <option value="Logistics">Logistics</option>
+                                                <option value="Mechanical">Mechanical</option>
+                                                <option value="Safety Inspectors">Safety Inspectors</option>
+                                            </select>
+                                        </div>
+                                        <div className="pt-2 border-t border-gray-100 dark:border-gray-700 flex justify-between">
+                                            <button onClick={() => { setStatusFilter('all'); setDepartmentFilter('all'); }} className="text-xs text-gray-500 hover:text-gray-700">Reset</button>
+                                            <button onClick={() => setShowFilters(false)} className="text-xs text-primary-600 font-bold">Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Add Asset Button */}
+                        <Button
+                            variant="primary"
+                            icon={FaPlus}
+                            onClick={() => {
+                                console.log('Opening Form');
+                                setIsFormOpen(true);
+                            }}
+                        >
                             Add Asset
                         </Button>
                     </div>
