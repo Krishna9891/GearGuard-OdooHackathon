@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "gearguard-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "gearguard-frontend/dist"
+      }
+    },
+    {
+      "src": "gearguard-backend/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "gearguard-backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "gearguard-frontend/dist/$1"
+    }
+  ]
+}

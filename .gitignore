@@ -12,6 +12,7 @@ logs
 *.log
 npm-debug.log*
 yarn-debug.log*
+lerna-debug.log*
 
 # Environment variables
 .env
@@ -27,7 +28,19 @@ yarn-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
+*.swp
+*.sw?
 
 # Build outputs
 dist/
 build/
+dist-ssr/
+
+# Vercel
+.vercel
+.vercel/**
+
+# Database
+*.sqlite
+*.sqlite3
+database.sqlite

@@ -129,8 +129,39 @@ npm test
 ```
 
 ## Deployment
-*   **Frontend**: Ready for Vercel/Netlify (Build command: `npm run build`).
-*   **Backend**: Ready for Render/Heroku (Start command: `npm start`).
+
+### Production Deployment on Vercel
+
+GearGuard is production-ready and can be deployed on Vercel in minutes!
+
+**Quick Deploy:**
+1. Push your code to GitHub
+2. Import repository in Vercel
+3. Deploy frontend and backend separately (see [DEPLOYMENT.md](DEPLOYMENT.md))
+
+**Required Environment Variables:**
+
+**Frontend:**
+```env
+VITE_API_URL=https://your-backend-url.vercel.app/api
+```
+
+**Backend:**
+```env
+NODE_ENV=production
+JWT_SECRET=your-secure-secret-key
+DATABASE_URL=your-postgresql-connection-string
+CORS_ORIGIN=https://your-frontend-url.vercel.app
+DB_DIALECT=postgres
+```
+
+**Database:** Use PostgreSQL for production (free options: Vercel Postgres, Neon, Supabase)
+
+📖 **Full deployment guide:** [DEPLOYMENT.md](DEPLOYMENT.md)
+
+**Alternative Platforms:**
+*   **Frontend**: Vercel, Netlify, Cloudflare Pages
+*   **Backend**: Vercel, Render, Railway, Heroku
 
 ## API Documentation
 API endpoints are documented in the codebase. Key routes:
@@ -142,4 +173,22 @@ API endpoints are documented in the codebase. Key routes:
 *   [ ] Mobile App for on-site technicians
 *   [ ] IoT Sensor Integration for auto-triggering requests
 *   [ ] PDF Report Export
+*   [ ] Multi-tenant support
+*   [ ] Advanced analytics dashboard
+
+## Live Demo
+🚀 **Coming Soon** - Deploying on Vercel
+
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+This project was built for the Odoo x Adani Hackathon.
+
+## Contact
+**GitHub**: [@Krishna9891](https://github.com/Krishna9891)
+
+---
+
+⭐ **Built with ❤️ for the Odoo x Adani Hackathon** ⭐
 
